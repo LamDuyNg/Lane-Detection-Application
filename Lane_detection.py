@@ -61,7 +61,6 @@ def display_lines(image, lines):
 # line_image = display_lines(img, averaged_lines)
 # combo_image = cv.addWeighted(img, 0.8, line_image, 1, 1)
 #
-# cv.putText(combo_image, "521H0499", (100, 200), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3, cv.LINE_AA)
 # cv.imwrite('image_01_01.png',combo_image)
 #
 # cv.waitKey(0)
@@ -85,7 +84,6 @@ while(cap.isOpened()):
     averaged_lines = average_slope_intercept(frame, lines)
     line_image = display_lines(frame, averaged_lines)
     combo_image = cv.addWeighted(frame, 0.8, line_image, 1, 1)
-    cv.putText(combo_image, "521H0499", (100, 200), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3, cv.LINE_AA)
     cv.imshow('',combo_image)
     # out.write(combo_image)
     if cv.waitKey(20) & 0xFF == ord('q'):
