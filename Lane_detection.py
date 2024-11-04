@@ -53,17 +53,43 @@ def display_lines(image, lines):
             cv.line(line_image, (x1, y1), (x2, y2), (255, 0, 0), 10)
     return line_image
 
-canny=canny(img)
-ROI=region_of_interest(canny)
-lines = cv.HoughLinesP(ROI, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-averaged_lines = average_slope_intercept(img, lines)
-line_image = display_lines(img, averaged_lines)
-combo_image = cv.addWeighted(img, 0.8, line_image, 1, 1)
+#Image process
+# canny=canny(img)
+# ROI=region_of_interest(canny)
+# lines = cv.HoughLinesP(ROI, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+# averaged_lines = average_slope_intercept(img, lines)
+# line_image = display_lines(img, averaged_lines)
+# combo_image = cv.addWeighted(img, 0.8, line_image, 1, 1)
+#
+# cv.putText(combo_image, "521H0499", (100, 200), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3, cv.LINE_AA)
+# cv.imwrite('image_01_01.png',combo_image)
+#
+# cv.waitKey(0)
+# cv.destroyAllWindows()
 
-cv.putText(combo_image, "521H0499", (100, 200), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3, cv.LINE_AA)
-cv.imwrite('image_01_01.png',combo_image)
+#Video process
 
+cap = cv.VideoCapture('Lab10_test2.mp4')\
 
+frame_width = int(cap.get(3))
+frame_height = int(cap.get(4))
 
-cv.waitKey(0)
-cv.destroyAllWindows()
+size = (frame_width, frame_height)
+out = cv.VideoWriter('video_01_01.mp4',0x7634706d, 20, size,isColor=True)
+
+while(cap.isOpened()):
+    _, frame = cap.read()
+    canny_image = canny(frame)
+    cropped_image = region_of_interest(canny_image)
+    lines = cv.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+    averaged_lines = average_slope_intercept(frame, lines)
+    line_image = display_lines(frame, averaged_lines)
+    combo_image = cv.addWeighted(frame, 0.8, line_image, 1, 1)
+    cv.putText(combo_image, "521H0499", (100, 200), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3, cv.LINE_AA)
+    cv.imshow('',combo_image)
+    # out.write(combo_image)
+    if cv.waitKey(20) & 0xFF == ord('q'):
+        break
+
+cap.release()
+out.release()
