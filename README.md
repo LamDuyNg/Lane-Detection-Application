@@ -14,5 +14,7 @@ This project is a part of the Digital Processing course at Tôn Đức Thắng U
 ## Setup Instructions
 1. Clone the repository.
 2. Install required libraries (CV2 and NumPy)
-3. Uncommand the video process part if you want to detect lane from a video. Uncommand the image process part if you want to detect lane from an image
-4. Run `Lan_detection.py` to execute .
+3. Optional:
+   - Uncommand the video process part to detect lanes from a video.
+   - Uncommand the image process part to detect a lane from an image
+5. Run `Lan_detection.py` to execute.
